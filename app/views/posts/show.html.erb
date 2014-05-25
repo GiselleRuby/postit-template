@@ -1,0 +1,15 @@
+<p class='pull-right'>
+  [<%= link_to 'Edit this post', edit_post_path(@post) %>]
+</p>
+
+<%= render 'title', title: 'Show Post' %>
+
+<div class = 'well'>
+  <%= @post.title %><br>
+  <%= @post.url %><br>
+  <%= @post.description %><br>
+  <%= @post.created_at %><br>
+  <%= @post.updated_at %><br>   
+</div>
+
+<%= link_to 'Back to Index', posts_path %>
