@@ -1,6 +1,5 @@
-<%= render 'title', title: 'All Posts' %>
+<%= render 'shared/title', title: 'All Posts' %>
 
-<% @posts.each do |p| %>
-	<%= render 'post', post: p %>	
+<% @posts.sort_by{|p| p.created_at}.reverse.each do |p| %>
+	<%= render 'post', post: p , comment: nil%>
 <% end %>
-

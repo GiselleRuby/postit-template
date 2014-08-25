@@ -1,5 +1,5 @@
 <h3><%= link_to 'All Posts', posts_path %> > <%= @category.name %></h3>
 
 <% @category.posts.each do |p| %>
-	<%= render 'posts/post', post: p %>
+	<%= render 'posts/post', post: p ,comment: nil%>
 <% end %>

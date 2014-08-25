@@ -1,0 +1,50 @@
+ <%= render 'shared/title', title: "#{@user.username}'s Profile" %>
+
+<div class='row'>
+  <div class='span8 well'>
+    <dl class="dl-horizontal">
+      <dt>username</dt>
+      <dd><%= "#{@user.username}" %></dd>
+      <dt>created time</dt>
+      <dd>
+        <% if @user.created_at %>
+          <%= "#{@user.created_at}" %>
+        <% else %>
+          --
+        <% end %>
+      </dd>
+      <dt>updated time</dt>
+      <dd>
+        <% if @user.updated_at %>
+          <%= "#{@user.updated_at}" %>
+        <% else %>
+          --
+        <% end %>
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<p></p>
+<h5>
+<%= "#{@user.username}'s Activity" %>
+</h5>
+
+<ul class="nav nav-tabs">
+  <li class=<%= 'active' if params[:tab].nil? %> >
+    <%= link_to "Posts(#{@user.posts.size})", user_path(@user) %>
+  </li>
+  <li class=<%= 'active' if params[:tab] == 'comments' %> >
+    <%= link_to "Comments(#{@user.comments.size})", user_path(@user, tab: "comments") %>
+  </li>
+</ul>
+
+<% if params[:tab].nil? %>
+  <% @user.posts.each do |p| %>
+    <%= render 'posts/post', post: p , comment: nil%>
+  <% end %>
+<% elsif params[:tab] == 'comments' %>
+  <% @user.comments.each do |c| %>
+    <%= render 'posts/comment', comment: c, show_post: true %>
+  <% end %>
+<% end %>

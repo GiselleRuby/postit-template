@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
-	# before_action :set_category, only: [:show, :edit, :update] 
+	# before_action :set_category, only: [:show, :edit, :update]
+	before_action :require_user, only: [:create]
 
 	# def index
 	# 	# binding.pry
@@ -24,32 +25,15 @@ class CategoriesController < ApplicationController
 	end
 
 	def show
-		@category = Category.find(params[:id])
 		# binding.pry
+		@category = Category.find(params[:id])
 	end
-
-	# def edit
-	# 	# binding.pry
-	# end
-
-	# def update
-	# 	# binding.pry
-	# 	if @category.update(category_param)
-	# 		flash[:notice] = 'update success'
-	# 		redirect_to categories_path
-	# 	else
-	# 		render :edit
-	# 	end
-	# end
 
 	private
 
 	def category_param
-    params.require(:category).permit(:name)    
+    params.require(:category).permit(:name)
   end
 
-	# def set_category
-	# 	@category = Category.find(params[:id])
-	# end
 
 end
