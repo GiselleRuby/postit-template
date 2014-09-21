@@ -11,6 +11,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    # binding.pry
   end
 
   def update
@@ -23,6 +24,7 @@ class PostsController < ApplicationController
       flash[:notice] = "update success"
       redirect_to post_path(@post)
     else
+      # flash.now = "just test"
       render :edit
     end
   end
@@ -50,13 +52,18 @@ class PostsController < ApplicationController
   def vote
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
 
-    if @vote.valid?
-      flash[:notice] = "Your vote was counted."
-    else
-      flash[:error] = "You can only vote once."
-    end
+    respond_to do |format|
+      format.html do
+        if @vote.valid?
+          flash[:notice] = "Your vote was counted."
+        else
+          flash[:error] = "You can only vote once."
+        end
 
-    redirect_to :back
+        redirect_to :back
+      end
+      format.js #預設vote.js.erb
+    end
   end
 
   private
@@ -66,7 +73,8 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(title_slug: params[:id])
+    # binding.pry
   end
 
 end
